@@ -58,6 +58,8 @@ body{background:var(--bg);color:var(--text);font-family:'Heebo',sans-serif;direc
 .dd-title{font-size:14px;font-weight:500;color:var(--text);flex:1}.dd-artist{font-size:12px;color:var(--muted);flex-shrink:0}
 .dd-item mark{background:rgba(192,136,64,.25);color:var(--accent2);border-radius:2px;font-style:normal}
 .dd-empty{padding:24px;text-align:center;color:var(--muted);font-size:14px}
+.hdr-row1{display:flex;align-items:center;gap:16px;flex:none}
+.hdr-row2{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
 .badge{margin-right:auto;display:flex;align-items:center;gap:8px}
 .load-btn{background:var(--accent);color:#0d0b09;border:none;cursor:pointer;font-family:'Heebo',sans-serif;font-weight:700;font-size:13px;padding:7px 14px;border-radius:6px;white-space:nowrap;transition:background .15s}
 .load-btn:hover{background:var(--accent2)}.load-btn:disabled{opacity:.5;cursor:default}
@@ -93,24 +95,22 @@ body{background:var(--bg);color:var(--text);font-family:'Heebo',sans-serif;direc
 ::-webkit-scrollbar-thumb{background:var(--faint);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--muted)}
 @media(max-width:640px){
   .sidebar{display:none}
-  /* 2-row header on mobile */
-  .hdr{height:auto;flex-wrap:wrap;padding:10px 14px;gap:8px 12px;align-items:center}
-  .logo{order:1;flex:1;font-size:18px}
   .logo small{display:none}
-  .badge{order:2;gap:6px}
-  .status{max-width:120px;font-size:11px}
+  /* taller header to fit two rows */
+  .hdr{height:auto;flex-direction:column;align-items:stretch;padding:10px 14px;gap:8px}
+  .hdr-row1{display:flex;align-items:center}
+  .logo{flex:1;font-size:18px}
+  .badge{gap:6px}
+  .status{max-width:140px;font-size:11px}
   .prog{width:80px}
-  /* search + random button share a full-width second row */
-  .srch{order:3;flex:1;max-width:none;min-width:0}
-  .srch-inp{font-size:16px;padding:10px 40px 10px 14px} /* 16px prevents iOS zoom */
-  #btnRandom{order:4;flex-shrink:0;padding:9px 12px;font-size:13px}
-  /* push layout down to match taller header */
-  .layout{margin-top:104px;height:calc(100vh - 104px)}
-  /* full-width dropdown on mobile */
+  .hdr-row2{display:flex;align-items:center;gap:8px}
+  .srch{flex:1;max-width:none}
+  /* 16px prevents iOS Safari auto-zoom on focus */
+  .srch-inp{font-size:16px;padding:10px 40px 10px 14px}
+  .layout{margin-top:108px;height:calc(100vh - 108px)}
   .dd{max-height:55vh}
   .dd-item{padding:13px 15px}
   .dd-title{font-size:15px}
-  /* song view padding */
   .song-view{padding:16px}
   .song-title{font-size:24px}
 }
@@ -118,16 +118,20 @@ body{background:var(--bg);color:var(--text);font-family:'Heebo',sans-serif;direc
 </head>
 <body>
 <header class="hdr">
-  <div class="logo">🎸 <small>ספר שירים</small></div>
-  <div class="srch">
-    <span class="srch-ico">🔍</span>
-    <input id="inp" class="srch-inp" type="text" placeholder="חפש שיר או אמן..." autocomplete="off" disabled>
-    <div id="dd" class="dd"></div>
+  <div class="hdr-row1">
+    <div class="logo">🎸 <small>ספר שירים</small></div>
+    <div class="badge">
+      <div class="prog" id="prog" style="display:block"><div class="prog-fill" id="progFill"></div></div>
+      <span class="status" id="status">טוען...</span>
+    </div>
   </div>
-  <button id="btnRandom" style="background:var(--bg3);border:1px solid var(--border);color:var(--accent2);font-family:'Heebo',sans-serif;font-size:13px;font-weight:600;padding:7px 13px;border-radius:8px;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s;flex-shrink:0" title="שיר אקראי">🎲 אקראי</button>
-  <div class="badge">
-    <div class="prog" id="prog" style="display:block"><div class="prog-fill" id="progFill"></div></div>
-    <span class="status" id="status">טוען...</span>
+  <div class="hdr-row2">
+    <div class="srch">
+      <span class="srch-ico">🔍</span>
+      <input id="inp" class="srch-inp" type="text" placeholder="חפש שיר או אמן..." autocomplete="off" disabled>
+      <div id="dd" class="dd"></div>
+    </div>
+    <button id="btnRandom" style="background:var(--bg3);border:1px solid var(--border);color:var(--accent2);font-family:'Heebo',sans-serif;font-size:13px;font-weight:600;padding:7px 12px;border-radius:8px;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s;flex-shrink:0" title="שיר אקראי">🎲 אקראי</button>
   </div>
 </header>
 <div class="layout">
